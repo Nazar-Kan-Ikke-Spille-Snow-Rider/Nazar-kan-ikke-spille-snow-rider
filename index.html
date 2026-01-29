@@ -27,9 +27,15 @@
         .iframe-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
             margin: 50px 0;
             flex-wrap: wrap;
+        }
+
+        .iframe-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         iframe {
@@ -37,6 +43,28 @@
             height: 300px;
             border: 3px solid #00ffcc;
             border-radius: 10px;
+        }
+
+        .btn-container {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #00ffcc;
+            color: #000;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
         }
 
         @media (max-width: 900px) {
@@ -51,8 +79,48 @@
     <h1>🚀 My Cool Page 🚀</h1>
     
     <div class="iframe-container">
-        <iframe src="https://jepp-e.github.io/Snow-Rider3D/" title="Iframe 1"></iframe>
-        <iframe src="https://example.org" title="Iframe 2"></iframe>
+        <div class="iframe-wrapper">
+            <iframe id="iframe1" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="autoplay; fullscreen" title="Iframe 1"></iframe>
+            <div class="btn-container">
+                <button onclick="toggleMute('iframe1')">Mute</button>
+                <button onclick="goFullscreen('iframe1')">Fullscreen</button>
+            </div>
+        </div>
+
+        <div class="iframe-wrapper">
+            <iframe id="iframe2" src="https://www.youtube.com/embed/tgbNymZ7vqY" allow="autoplay; fullscreen" title="Iframe 2"></iframe>
+            <div class="btn-container">
+                <button onclick="toggleMute('iframe2')">Mute</button>
+                <button onclick="goFullscreen('iframe2')">Fullscreen</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Fullscreen function
+        function goFullscreen(iframeId) {
+            const iframe = document.getElementById(iframeId);
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) { /* Safari */
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { /* IE11 */
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        // Mute function (works only on iframes that allow JS control, e.g., YouTube API)
+        const muted = {};
+        function toggleMute(iframeId) {
+            const iframe = document.getElementById(iframeId);
+            if (!muted[iframeId]) {
+                iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                muted[iframeId] = true;
+            } else {
+                iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                muted[iframeId] = false;
+            }
+        }
+    </script>
 </body>
 </html>
