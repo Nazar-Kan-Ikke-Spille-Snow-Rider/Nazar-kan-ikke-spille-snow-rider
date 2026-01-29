@@ -67,9 +67,6 @@ button:hover {
 
 <h1>🚀 My Cool Page 🚀</h1>
 
-<!-- Central Mute Button -->
-<button onclick="toggleGameMute()">Mute/Unmute Game</button>
-
 <div class="iframe-container">
     <div class="iframe-wrapper">
         <iframe id="iframe1" src="https://jepp-e.github.io/Snow-Rider3D/" allow="autoplay; fullscreen" title="Game Iframe"></iframe>
@@ -83,40 +80,6 @@ button:hover {
 </div>
 
 <script>
-let gameMuted = false;
-let audioContext;
-let masterGain;
-
-function toggleGameMute() {
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        masterGain = audioContext.createGain();
-        masterGain.gain.value = 1;
-        masterGain.connect(audioContext.destination);
-
-        // Capture audio from all audio elements
-        const audios = document.getElementsByTagName('audio');
-        for (let a of audios) {
-            try {
-                const src = audioContext.createMediaElementSource(a);
-                src.connect(masterGain);
-            } catch(e) {}
-        }
-
-        // Capture audio from all video elements
-        const videos = document.getElementsByTagName('video');
-        for (let v of videos) {
-            try {
-                const src = audioContext.createMediaElementSource(v);
-                src.connect(masterGain);
-            } catch(e) {}
-        }
-    }
-
-    gameMuted = !gameMuted;
-    masterGain.gain.value = gameMuted ? 0 : 1;
-}
-
 function goFullscreen(iframeId) {
     const iframe = document.getElementById(iframeId);
     if (iframe.requestFullscreen) iframe.requestFullscreen();
