@@ -7,6 +7,7 @@
 <link rel="icon" href="a.png" type="image/png">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
 <style>
 body {
     background-color: #1a1a1a;
@@ -16,6 +17,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 3em;
@@ -23,25 +25,27 @@ h1 {
     color: #00ffcc;
     text-shadow: 2px 2px 8px #000;
 }
+
 .iframe-container {
     display: flex;
     justify-content: center;
     gap: 40px;
     margin: 50px 0;
-    flex-wrap: wrap;
-    align-items: flex-start;
 }
+
 .iframe-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 iframe {
-    width: 900px;    /* much bigger */
-    height: 600px;   /* much bigger */
+    width: 900px;
+    height: 600px;
     border: 4px solid #00ffcc;
     border-radius: 10px;
 }
+
 button {
     padding: 12px 24px;
     font-size: 1.2em;
@@ -54,44 +58,54 @@ button {
     transition: transform 0.2s;
     margin: 20px 0;
 }
+
 button:hover {
     transform: scale(1.1);
 }
-@media (max-width: 2000px) {
+
+/* Stack ONLY on small screens */
+@media (max-width: 1200px) {
     .iframe-container {
         flex-direction: column;
         align-items: center;
     }
+
     iframe {
-        width: 95vw;  /* scale smaller screens */
+        width: 95vw;
         height: 60vh;
     }
 }
 </style>
 </head>
+
 <body>
 
 <h1>🚀 nasar kan ikke spille snow rider 🚀</h1>
 
 <div class="iframe-container">
     <div class="iframe-wrapper">
-        <iframe id="iframe1" src="https://jepp-e.github.io/Snow-Rider3D/" allow="autoplay; fullscreen" title="Game Iframe"></iframe>
+        <iframe id="iframe1"
+            src="https://jepp-e.github.io/Snow-Rider3D/"
+            allow="autoplay; fullscreen">
+        </iframe>
         <button onclick="goFullscreen('iframe1')">Fullscreen</button>
     </div>
 
     <div class="iframe-wrapper">
-        <iframe id="iframe2" src="https://jepp-e.github.io/Slope-Game/" allow="autoplay; fullscreen" title="Game Iframe 2"></iframe>
+        <iframe id="iframe2"
+            src="https://jepp-e.github.io/Slope-Game/"
+            allow="autoplay; fullscreen">
+        </iframe>
         <button onclick="goFullscreen('iframe2')">Fullscreen</button>
     </div>
 </div>
 
 <script>
-function goFullscreen(iframeId) {
-    const iframe = document.getElementById(iframeId);
+function goFullscreen(id) {
+    const iframe = document.getElementById(id);
     if (iframe.requestFullscreen) iframe.requestFullscreen();
-    else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-    else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
 }
 </script>
+
 </body>
 </html>
